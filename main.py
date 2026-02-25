@@ -24,7 +24,7 @@ class PostureAnalyzer:
         self.mp_pose = mp.solutions.pose
         self.pose = self.mp_pose.Pose(
             static_image_mode=False,
-            model_complexity=1,
+            model_complexity=0,
             smooth_landmarks=True,
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5
@@ -308,4 +308,5 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error occurred: {e}")
         import traceback
+
         traceback.print_exc()
