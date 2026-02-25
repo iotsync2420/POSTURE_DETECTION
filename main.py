@@ -3,6 +3,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow warnings
 
 import cv2
 import mediapipe as mp
+import mediapipe.python.solutions.pose as mp_pose
+import mediapipe.python.solutions.drawing_utils as mp_drawing
 import numpy as np
 import time
 from collections import deque
@@ -310,3 +312,4 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
+
