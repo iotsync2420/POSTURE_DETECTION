@@ -1,5 +1,6 @@
+flask
+flask-cors
 mediapipe==0.10.11
 opencv-python-headless
-flask
 gunicorn
 numpy
