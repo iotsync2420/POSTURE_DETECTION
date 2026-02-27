@@ -13,8 +13,9 @@ from main import PostureAnalyzer
 analyzer = PostureAnalyzer()
 
 app = Flask(__name__)
-analyzer = PostureAnalyzer()
 CORS(app)  # <--- 2. Add this line. It allows all origins by default.
+
+analyzer = PostureAnalyzer()
 
 # A simple HTML interface so you can see it working
 HTML_TEMPLATE = """
@@ -99,3 +100,4 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
 
     app.run(host='0.0.0.0', port=port)
+
