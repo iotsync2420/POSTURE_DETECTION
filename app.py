@@ -4,9 +4,17 @@ import numpy as np
 import base64
 from flask import Flask, request, jsonify, render_template_string
 from main import PostureAnalyzer
+from flask import Flask, request, jsonify, render_template_string
+from flask_cors import CORS  # <--- 1. Import this
+from main import PostureAnalyzer
+
+
+
+analyzer = PostureAnalyzer()
 
 app = Flask(__name__)
 analyzer = PostureAnalyzer()
+CORS(app)  # <--- 2. Add this line. It allows all origins by default.
 
 # A simple HTML interface so you can see it working
 HTML_TEMPLATE = """
@@ -89,4 +97,5 @@ def analyze():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
+
     app.run(host='0.0.0.0', port=port)
