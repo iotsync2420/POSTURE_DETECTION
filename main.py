@@ -223,7 +223,33 @@ class PostureAnalyzer:
                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), 1)
         
         return frame
-    
+    def run_on_frame(self, frame):
+        """
+        This method processes a single image frame sent from the web browser.
+        """
+        if frame is None:
+            return {"status": "error", "message": "Empty frame received"}
+
+        # 1. MediaPipe needs RGB, but OpenCV uses BGR
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        
+        # 2. Process the frame
+        results = self.pose.process(rgb_frame)
+        
+        # 3. Check if a person was found
+        if results.pose_landmarks:
+            landmarks = results.pose_landmarks.landmark
+            issues = self.analyze_comprehensive_posture(landmarks)
+            position = self.detect_body_position(landmarks)
+            
+            # Return the data to app.py
+            return {
+                "status": "success", 
+                "issues": issues, 
+                "position": position
+            }
+        
+        return {"status": "no_person"}
     def run(self):
         """Optimized main loop"""
         cap = cv2.VideoCapture(0)
@@ -312,5 +338,6 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
+
 
 
