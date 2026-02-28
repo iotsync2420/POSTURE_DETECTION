@@ -84,6 +84,10 @@ def analyze():
         decoded = base64.b64decode(encoded)
         nparr = np.frombuffer(decoded, np.uint8)
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        if frame is None:
+            print("DEBUG: Frame is None! Decoding failed.")
+        else:
+            print(f"DEBUG: Frame received. Shape: {frame.shape}")
 
         results = analyzer.run_on_frame(frame)
         
@@ -100,4 +104,5 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
 
     app.run(host='0.0.0.0', port=port)
+
 
