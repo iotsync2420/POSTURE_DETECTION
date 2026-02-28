@@ -95,7 +95,25 @@ class PostureAnalyzer:
         # Average hip position
         hip_x = (left_hip.x + right_hip.x) / 2
         hip_y = (left_hip.y + right_hip.y) / 2
-        
+        head_angle = self.calculate_angle(landmarks[7], landmarks[11], landmarks[23])
+        if head_angle < 150: # Adjust threshold as needed
+            issues.append({
+                "type": "Forward Head",
+                "text": "Your head is too far forward!",
+                "risk": "Can lead to Cervical Spondylosis and chronic neck pain.",
+                "alert": "RED"
+            })
+
+        # 2. Detect Slouching (Hunched Back)
+        # Vertical alignment of shoulder (11) over hip (23)
+        if abs(landmarks[11].x - landmarks[23].x) > 0.05:
+            issues.append({
+                "type": "Slouching",
+                "text": "You are hunching your back.",
+                "risk": "Increases risk of Herniated Discs and Thoracic Kyphosis.",
+                "alert": "RED"
+            })
+
         # 1. FORWARD HEAD POSTURE
         ear_shoulder_horizontal = abs(ear_x - shoulder_x)
         if ear_shoulder_horizontal > 0.08:
@@ -338,6 +356,7 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
+
 
 
 
