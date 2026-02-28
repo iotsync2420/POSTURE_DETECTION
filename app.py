@@ -90,6 +90,7 @@ def analyze():
             print(f"DEBUG: Frame received. Shape: {frame.shape}")
 
         results = analyzer.run_on_frame(frame)
+       
         
         if results["status"] == "success":
             # Map the results to a cleaner format for the frontend
@@ -104,5 +105,6 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
 
     app.run(host='0.0.0.0', port=port)
+
 
 
