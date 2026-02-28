@@ -28,8 +28,8 @@ class PostureAnalyzer:
             static_image_mode=True,
             model_complexity=0,
             smooth_landmarks=True,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5
+            min_detection_confidence=0.3,
+            min_tracking_confidence=0.3
         )
         self.mp_draw = mp.solutions.drawing_utils
         
@@ -356,6 +356,7 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
+
 
 
 
